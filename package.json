@@ -1,0 +1,16 @@
+{
+  "name": "javascript-qhub",
+  "version": "1.0.0",
+  "description": "Javascript Cube",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@types/jest": "^24.0.23",
+    "jest": "^24.9.0"
+  }
+}
