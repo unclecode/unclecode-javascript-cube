@@ -1,0 +1,48 @@
+name: Test and Bring Down Next Lesson
+on:
+  pull_request:
+    branches: topic1/lesson1
+
+jobs:
+  testAndBringNextLesson:
+    runs-on: [ubuntu-latest]
+    steps:
+      - uses: actions/checkout@v1
+      - name: Use Node.js 12.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: "12.x"    
+      - name: Cache node modules
+        uses: actions/cache@v1
+        with:
+          path: node_modules
+          key: ${{ runner.OS }}-build-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.OS }}-build-${{ env.cache-name }}-
+            ${{ runner.OS }}-build-
+            ${{ runner.OS }}-
+      
+      - name: npm install
+        run: npm install
+      
+      - name: Fetch student lesson
+        run: |
+          node .github/workflows/fetchStudentLesson.js ${{ github.repository }} topic1/lesson1
+          git checkout topic1/lesson1-test
+      
+      - name: npm test
+        run : npm test
+      
+      - name: Failure
+        if: failure()
+        run: echo "failure"
+      
+      - name: Success
+        if: success()
+        run: |
+          echo "success"
+          git config --global user.email "unclecode@kidocode.com"
+          git config --global user.name "unclecode"
+          git checkout topic1/lesson1 --
+          git branch -D topic1/lesson1-test
+          node .github/workflows/pullNextLessonAndNotify.js ${{ github.repository }} ${{ secrets.GITHUB_TOKEN }} topic1/lesson1
