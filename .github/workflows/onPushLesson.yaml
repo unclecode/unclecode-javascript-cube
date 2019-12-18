@@ -29,17 +29,16 @@ jobs:
     - name: npm test
       run: npm test
 
-    - name: success
+    - name: Success
       if: success()
       run: |
         echo "success"
-        - name: PullRequestAction
         run: |
           git config user.email "${{ github.actor }}@users.noreply.github.com"
           git config user.name "${{ github.actor }}"
           
           node .github/workflows/onTestSuccess.js ${{ github.repository }} ${{ secrets.GITHUB_TOKEN }} topic1/lesson1
       
-    - name: failure
+    - name: Failure
       if: failure()
       run: echo "failure"
