@@ -124,6 +124,6 @@ const onTestSuccess = async (repo, gitToken, branch) => {
     return await sendPullToChub(cHub, repo, gitToken, branch)
 }
 
-onTestSuccess(process.argv[2], process.argv[3], process.argv[4]).then((res) => {
-    console.log(res)
-})
+// onTestSuccess(process.argv[2], process.argv[3], process.argv[4]).then((res) => {
+//     console.log(res)
+// })
