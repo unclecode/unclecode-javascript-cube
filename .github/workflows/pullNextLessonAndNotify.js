@@ -192,6 +192,6 @@ const pullNextLessonAndNotify = async (repo, gitToken, branch) => {
     return await updateCube(cHub, qHub, repo, gitToken, branch)
 }
 
-pullNextLessonAndNotify(process.argv[2], process.argv[3], process.argv[4]).then((res) => {
-    console.log(res)
-})
+// pullNextLessonAndNotify(process.argv[2], process.argv[3], process.argv[4]).then((res) => {
+//     console.log(res)
+// })
