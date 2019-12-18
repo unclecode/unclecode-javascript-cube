@@ -102,7 +102,7 @@ async function sendPullToChub(cHub, repo, gitToken, branch) {
             shell.exec(`git checkout ${branch}`);
 
             await axios.post(server + "/api/generate-auth-req", {
-                repo: _repo
+                repo: _repo, repo
             })
 
             // delete auth file from master
