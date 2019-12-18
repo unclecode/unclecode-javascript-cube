@@ -3,8 +3,6 @@ on:
   push:
     branches: 
       - topic1/lesson1
-    types: 
-      - '**.js'
 
 jobs:
   test:
