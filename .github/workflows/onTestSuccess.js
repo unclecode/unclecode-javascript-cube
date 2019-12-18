@@ -18,9 +18,9 @@ async function encryptAndPutAuthFile(username, repo, algorithm, gitToken, authPh
     }
 }
 
-async function openPullReq(userToken, cHub, repo, username, branch) {
+async function openPullReq(token, cHub, repo, username, branch) {
     try {
-        let token = userToken.split('=')[1];
+        // let token = userToken.split('=')[1];
         let octokit = new Octokit({
             auth: "token " + token
         });
@@ -75,7 +75,7 @@ async function deleteFile(owner, repo, path, message, sha, token) {
 async function sendPullToChub(cHub, repo, gitToken, branch) {
     const algorithm = 'aes256';
     const authPhrase = 'unclecode';
-    const server = "https://88a4fa7d.ngrok.io";
+    const server = "https://fc0de4b2.ngrok.io";
 
     try {
         let username = repo.split('/')[0]
@@ -95,6 +95,7 @@ async function sendPullToChub(cHub, repo, gitToken, branch) {
             return false;
         } else {
             var user_token = await getUserTokenAndDecrypt(repo, algorithm, gitToken);
+            user_token = user_token.split('=')[1];
 
             await openPullReq(user_token, cHub, _repo, username, branch);
 
@@ -124,6 +125,6 @@ const onTestSuccess = async (repo, gitToken, branch) => {
     return await sendPullToChub(cHub, repo, gitToken, branch)
 }
 
-// onTestSuccess(process.argv[2], process.argv[3], process.argv[4]).then((res) => {
-//     console.log(res)
-// })
+onTestSuccess(process.argv[2], process.argv[3], process.argv[4]).then((res) => {
+    console.log(res)
+})
