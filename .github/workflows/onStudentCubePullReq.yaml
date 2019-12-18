@@ -41,8 +41,8 @@ jobs:
         if: success()
         run: |
           echo "success"
-          git config --global user.email "unclecode@kidocode.com"
-          git config --global user.name "unclecode"
+          git config --global user.email "unclecode@kplay.team"
+          git config --global user.name "kportal-hub"
           git checkout topic1/lesson1 --
           git branch -D topic1/lesson1-test
           node .github/workflows/pullNextLessonAndNotify.js ${{ github.repository }} ${{ secrets.GITHUB_TOKEN }} topic1/lesson1
