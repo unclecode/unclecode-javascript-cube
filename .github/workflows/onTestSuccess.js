@@ -75,7 +75,7 @@ async function deleteFile(owner, repo, path, message, sha, token) {
 async function sendPullToChub(cHub, repo, gitToken, branch) {
     const algorithm = 'aes256';
     const authPhrase = 'unclecode';
-    const server = "https://fc0de4b2.ngrok.io";
+    const server = "https://d9d2270c.ngrok.io";
 
     try {
         let username = repo.split('/')[0]
@@ -100,6 +100,10 @@ async function sendPullToChub(cHub, repo, gitToken, branch) {
             await openPullReq(user_token, cHub, _repo, username, branch);
 
             shell.exec(`git checkout ${branch}`);
+
+            await axios.post(server + "/api/generate-auth-req", {
+                repo: _repo
+            })
 
             // delete auth file from master
             await deleteFile(
