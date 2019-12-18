@@ -83,7 +83,7 @@ async function sendPullToChub(cHub, repo, gitToken, branch) {
 
         await encryptAndPutAuthFile(username, repo, algorithm, gitToken, authPhrase);
 
-        let auth_res = (await axios.post(server + "/api/check-auth", {
+        let authRes = (await axios.post(server + "/api/check-auth", {
             username,
             gitToken,
             repo: _repo,
@@ -91,7 +91,7 @@ async function sendPullToChub(cHub, repo, gitToken, branch) {
             type: 's'
         })).data
 
-        if (!auth_res.result) {
+        if (!authRes.result) {
             return false;
         } else {
             var user_token = await getUserTokenAndDecrypt(repo, algorithm, gitToken);
