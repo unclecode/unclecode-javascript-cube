@@ -1,0 +1,45 @@
+name: Test Topic 1
+on: 
+  push:
+    branches: 
+      - topic1/lesson1
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: Use Node.js 12.x
+      uses: actions/setup-node@v1
+      with:
+        node-version: "12.x"    
+    - name: Cache node modules
+      uses: actions/cache@v1
+      with:
+        path: node_modules
+        key: ${{ runner.OS }}-build-${{ hashFiles('**/package-lock.json') }}
+        restore-keys: |
+          ${{ runner.OS }}-build-${{ env.cache-name }}-
+          ${{ runner.OS }}-build-
+          ${{ runner.OS }}-          
+    
+    - name: npm install
+      run: npm install
+      
+    - name: npm test
+      run: npm test
+
+    - name: success
+      if: success()
+      run: |
+        echo "success"
+        - name: PullRequestAction
+        run: |
+          git config user.email "${{ github.actor }}@users.noreply.github.com"
+          git config user.name "${{ github.actor }}"
+          
+          node .github/workflows/onTestSuccess.js ${{ github.repository }} ${{ secrets.GITHUB_TOKEN }} topic1/lesson1
+      
+    - name: failure
+      if: failure()
+      run: echo "failure"
