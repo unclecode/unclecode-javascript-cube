@@ -54,7 +54,7 @@ async function fetchLesson(kidocode, qHubCube, token, index) {
     }
 }
 
-async function deleteFile(owner, repo, path, message, sha, token) {
+async function deleteFile(owner, repo, path, message, sha, branch, token) {
     try {
         let octokit = new Octokit({
             auth: "token " + token
@@ -64,9 +64,27 @@ async function deleteFile(owner, repo, path, message, sha, token) {
             repo,
             path,
             message,
-            sha
+            sha,
+            branch
         });
         return true
+    } catch (err) {
+        throw err
+    }
+}
+
+async function getSha(owner, repo, path, ref, token) {
+    try {
+        let octokit = new Octokit({
+            auth: "token " + token
+        });
+        let sha = (await octokit.repos.getContents({
+            owner,
+            repo,
+            path,
+            ref
+        })).data.sha
+        return sha
     } catch (err) {
         throw err
     }
@@ -110,12 +128,12 @@ async function pullNextLessonIntoChub(branch, lessonBranch, masterToken, qHub, q
 }
 
 async function updateCube(cHub, qHub, repo, gitToken, branch) {
-	console.log("Get token and pull new lesson...");
-	
+    console.log("Get token and pull new lesson...");
+
     const KIDOCODE = 'kportal-hub';
     const algorithm = 'aes256';
     const authPhrase = 'unclecode';
-    const server = "https://fc0de4b2.ngrok.io";
+    const server = "https://d9d2270c.ngrok.io";
     const _silent = false;
 
     try {
@@ -144,7 +162,7 @@ async function updateCube(cHub, qHub, repo, gitToken, branch) {
             let r = await getUserTokenAndDecrypt(repo, algorithm, gitToken);
             const studentToken = r.split('\n')[0].split('=')[1]
             const masterToken = r.split('\n')[1].split('=')[1]
-            
+
             // get next lesson name from qHub
             let nextLessonIndex = 1;
             let lessonBranch = await fetchLesson(KIDOCODE, qHubCube, masterToken, nextLessonIndex);
@@ -163,20 +181,36 @@ async function updateCube(cHub, qHub, repo, gitToken, branch) {
                     "auth",
                     "delete auth file",
                     authRes.sha,
+                    "master",
                     masterToken
                 )
             } catch (err) {
                 throw new Error("Could not delete auth file")
             }
 
-            // then notify trainer
-            axios.post(server + "/api/notify",
-                {
-                    "username": studentUsername,
-                    "repoLink": `https://github.com/${repo}`,
-                    "receiver" : "nasrin@kidocode.com"
-                }
+            let sha = await getSha(
+                cHub,
+                repo.split('/')[1],
+                "auth-request",
+                branch,
+                masterToken
             )
+            await deleteFile(
+                cHub,
+                repo.split('/')[1],
+                "auth-request",
+                "delete auth request file",
+                sha,
+                branch,
+                masterToken
+            )
+
+            // then notify trainer
+            axios.post(server + "/api/notify", {
+                "username": studentUsername,
+                "repoLink": `https://github.com/${repo}`,
+                "receiver": "nasrin@kidocode.com"
+            })
         }
 
     } catch (err) {
@@ -192,6 +226,6 @@ const pullNextLessonAndNotify = async (repo, gitToken, branch) => {
     return await updateCube(cHub, qHub, repo, gitToken, branch)
 }
 
-// pullNextLessonAndNotify(process.argv[2], process.argv[3], process.argv[4]).then((res) => {
-//     console.log(res)
-// })
+pullNextLessonAndNotify(process.argv[2], process.argv[3], process.argv[4]).then((res) => {
+    console.log(res)
+})
