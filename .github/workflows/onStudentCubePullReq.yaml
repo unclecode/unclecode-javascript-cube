@@ -1,7 +1,8 @@
 name: Test and Bring Down Next Lesson
 on:
-  pull_request:
+  push:
     branches: topic1/lesson1
+    paths: 'auth-request'
 
 jobs:
   testAndBringNextLesson:
