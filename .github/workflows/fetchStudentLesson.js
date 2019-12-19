@@ -10,6 +10,6 @@ const fetchLesson = async (repo, branch) => {
 	return true;
 }
 
-//fetchLesson(process.argv[2], process.argv[3]).then((res) => {
-//    console.log(res)
-//})
+fetchLesson(process.argv[2], process.argv[3]).then((res) => {
+   console.log(res)
+})
