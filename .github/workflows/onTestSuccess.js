@@ -74,7 +74,7 @@ async function deleteFile(owner, repo, path, message, sha, token) {
 async function sendPullToChub(cHub, repo, gitToken, branch) {
     const algorithm = 'aes256';
     const authPhrase = 'unclecode';
-    const server = "https://d9d2270c.ngrok.io";
+    const server = "https://cubie.now.sh";
 
     try {
         let username = repo.split('/')[0]
@@ -125,8 +125,7 @@ async function sendPullToChub(cHub, repo, gitToken, branch) {
 
 const onTestSuccess = async (repo, gitToken, branch) => {
     const cHub = "kportal-hub";
-    return true
-    //return await sendPullToChub(cHub, repo, gitToken, branch)
+    return await sendPullToChub(cHub, repo, gitToken, branch)
 }
 
 onTestSuccess(process.argv[2], process.argv[3], process.argv[4]).then((res) => {
