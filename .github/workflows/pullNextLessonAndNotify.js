@@ -114,11 +114,18 @@ async function pullNextLessonIntoStudentRepo(cHub, studentUsername, studentRepoN
     }
 }
 
-async function pullNextLessonIntoChub(branch, lessonBranch, masterToken, qHub, qHubCube, cHub, repo, _silent) {
+async function pullNextLessonIntoChub(cube, branch, lessonBranch, masterToken, qHub, qHubCube, cHub, repo, _silent) {
     try {
         shell.exec(`git checkout --orphan ${lessonBranch}`, { silent: _silent });
         shell.exec(`git rm -rf .`, { silent: _silent });
         shell.exec(`git pull https://${qHub}:${masterToken}@github.com/${qHub}/${qHubCube}.git ${lessonBranch}`, { silent: _silent });
+        
+        shell.exec(`git checkout master`, { silent: _silent });
+        // update cube info
+        let cubeInfo = {};
+        cubeInfo.current = { lesson: lessonBranch };
+        fs.writeFileSync(`${cube}.cube.json`, JSON.stringify(cubeInfo));
+        
         shell.exec(`git add --all`, { silent: _silent });
         shell.exec(`git commit -m 'Add next lesson branch'`, { silent: _silent });
         shell.exec(`git push https://${cHub}:${masterToken}@github.com/${repo} ${lessonBranch}`);
@@ -170,7 +177,7 @@ async function updateCube(cHub, qHub, repo, gitToken, branch) {
             let lessonBranch = await fetchLesson(KIDOCODE, qHubCube, masterToken, nextLessonIndex);
 
             // then bring down next lessen from qhub with masterToken
-            await pullNextLessonIntoChub(branch, lessonBranch, masterToken, qHub, qHubCube, cHub, repo, _silent);
+            await pullNextLessonIntoChub(cubeName, branch, lessonBranch, masterToken, qHub, qHubCube, cHub, repo, _silent);
 
             // put new branch into student repo with his/her own token 
             await pullNextLessonIntoStudentRepo(cHub, studentUsername, studentRepoName, cubeName, lessonBranch, masterToken, repo, studentToken, _silent);
