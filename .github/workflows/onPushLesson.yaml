@@ -4,7 +4,7 @@ on:
     branches: 
       - topic1/lesson1
     paths: 
-      - 'a'
+      - 'topic1/lesson1/**.js'
 
 jobs:
   test:
