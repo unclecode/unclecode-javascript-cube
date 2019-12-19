@@ -34,6 +34,7 @@ async function checkAllBranchesDone(owner, repo, lessons, token){
         repo
     })).data;
     branches = branches.filter(b => !b.name.endsWith('master')).map(b => b.name);
+    console.log(branches)
     return isEqual(lessons, branches)
 }
 
@@ -59,6 +60,9 @@ async function checkIsDone(cHub, repo, gitToken, branch, isMerged) {
                     "repoLink": `https://github.com/${repo}`,
                     "receiver": "nasrin@kidocode.com"
                 })
+            }
+            else {
+                console.log("Cube is not completed!")
             }
 
         } catch (err) {
