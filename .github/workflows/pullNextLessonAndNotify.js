@@ -142,7 +142,7 @@ async function updateCube(cHub, qHub, repo, gitToken, branch) {
     const KIDOCODE = 'kportal-hub';
     const algorithm = 'aes256';
     const authPhrase = 'unclecode';
-    const server = "https://d9d2270c.ngrok.io";
+    const server = "https://cubie.now.sh";
     const _silent = false;
 
     try {
