@@ -1,3 +1,4 @@
+const fs = require('fs');
 const crypto = require('crypto');
 const shell = require("shelljs")
 const axios = require("axios");
