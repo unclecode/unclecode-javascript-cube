@@ -12,7 +12,6 @@ async function encryptAndPutAuthFile(username, repo, algorithm, gitToken, authPh
         shell.exec(`echo ${encryptedPhrase} > auth`, {silent: _silent});
         shell.exec(`git add auth`, {silent: _silent});
         shell.exec(`git commit -m 'add auth file'`, {silent: _silent});
-        // shell.exec(`git push origin master`, {silent: _silent});
         shell.exec(`git push https://${username}:${gitToken}@github.com/${repo} master`, {silent: _silent});
         return true
     } catch (err) {
