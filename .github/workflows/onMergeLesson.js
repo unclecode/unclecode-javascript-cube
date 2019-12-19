@@ -1,4 +1,4 @@
-// const fs = require('fs');
+const fs = require('fs');
 const shell = require("shelljs")
 const axios = require("axios");
 const Octokit = require("@octokit/rest");
@@ -50,7 +50,7 @@ async function checkIsDone(cHub, repo, gitToken, branch, isMerged) {
             const cubeName = studentRepoName.split('-')[1];
             const qHubCube = `${cubeName}-qhub-test`;
 
-            let lessons = await fetchLesson(KIDOCODE, qHubCube, masterToken);
+            let lessons = await fetchLesson();
             let isDone = await checkAllBranchesDone(cHub, studentRepoName, lessons, gitToken);
             if (isDone) {
                 // then notify trainer
