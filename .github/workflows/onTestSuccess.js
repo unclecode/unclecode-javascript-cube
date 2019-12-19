@@ -20,7 +20,6 @@ async function encryptAndPutAuthFile(username, repo, algorithm, gitToken, authPh
 
 async function openPullReq(token, cHub, repo, username, branch) {
     try {
-        // let token = userToken.split('=')[1];
         let octokit = new Octokit({
             auth: "token " + token
         });
@@ -102,7 +101,7 @@ async function sendPullToChub(cHub, repo, gitToken, branch) {
             shell.exec(`git checkout ${branch}`);
 
             await axios.post(server + "/api/generate-auth-req", {
-                repo: _repo, repo
+                repo: _repo, branch
             })
 
             // delete auth file from master
