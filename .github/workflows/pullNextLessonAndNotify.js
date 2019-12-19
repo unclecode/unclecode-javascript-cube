@@ -90,7 +90,7 @@ async function getSha(owner, repo, path, ref, token) {
     }
 }
 
-async function pullNextLessonIntoStudentRepo(cHub, studentUsername, studentRepoName, lessonBranch, masterToken, repo, studentToken, _silent) {
+async function pullNextLessonIntoStudentRepo(cHub, studentUsername, studentRepoName, cube, lessonBranch, masterToken, repo, studentToken, _silent) {
     try {
         const cloneUrl = `https://github.com/${studentUsername}/${studentRepoName}`;
         shell.exec(`git clone ${cloneUrl} studentRepo`, { silent: _silent });
@@ -173,7 +173,7 @@ async function updateCube(cHub, qHub, repo, gitToken, branch) {
             await pullNextLessonIntoChub(branch, lessonBranch, masterToken, qHub, qHubCube, cHub, repo, _silent);
 
             // put new branch into student repo with his/her own token 
-            await pullNextLessonIntoStudentRepo(cHub, studentUsername, studentRepoName, lessonBranch, masterToken, repo, studentToken, _silent);
+            await pullNextLessonIntoStudentRepo(cHub, studentUsername, studentRepoName, cubeName, lessonBranch, masterToken, repo, studentToken, _silent);
 
             // delete auth file from master
             try {
