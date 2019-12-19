@@ -124,8 +124,10 @@ async function sendPullToChub(cHub, repo, gitToken, branch) {
 }
 
 const onTestSuccess = async (repo, gitToken, branch) => {
-    const cHub = "kportal-hub"
-    return await sendPullToChub(cHub, repo, gitToken, branch)
+    const cHub = "kportal-hub";
+    console.log(repo)
+    return true
+//    return await sendPullToChub(cHub, repo, gitToken, branch)
 }
 
 onTestSuccess(process.argv[2], process.argv[3], process.argv[4]).then((res) => {
