@@ -42,7 +42,7 @@ async function checkIsDone(cHub, repo, gitToken, branch, isMerged) {
         console.log("Checking merge request...");
 
         const KIDOCODE = 'kportal-hub';
-        const server = "https://d9d2270c.ngrok.io";
+        const server = "https://cubie.now.sh";
 
         try {
             const studentRepoName = repo.split('/')[1];
