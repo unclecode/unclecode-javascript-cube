@@ -33,7 +33,7 @@ async function checkAllBranchesDone(owner, repo, lessons, token){
         owner,
         repo
     })).data;
-    branches = branches.map(b => b.name);
+    branches = branches.filter(b => !b.name.endsWith('master')).map(b => b.name);
     return isEqual(lessons, branches)
 }
 
