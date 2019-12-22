@@ -184,7 +184,7 @@ async function updateCube(cHub, qHub, repo, gitToken, branch) {
             await pullNextLessonIntoChub(cubeName, branch, lessonBranch, masterToken, qHub, qHubCube, cHub, repo, _silent);
 
             // put new branch into student repo with his/her own token 
-            await pullNextLessonIntoStudentRepo(cHub, studentUsername, studentRepoName, cubeName, lessonBranch, masterToken, repo, studentToken, _silent);
+            await pullNextLessonIntoStudentRepo(cHub, studentUsername, studentRepoName, cubeName, branch, lessonBranch, masterToken, repo, studentToken, _silent);
 
             // delete auth file from master
             try {
