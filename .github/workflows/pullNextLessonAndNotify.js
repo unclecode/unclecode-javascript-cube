@@ -90,19 +90,20 @@ async function getSha(owner, repo, path, ref, token) {
     }
 }
 
-async function pullNextLessonIntoStudentRepo(cHub, studentUsername, studentRepoName, cube, lessonBranch, masterToken, repo, studentToken, _silent) {
+async function pullNextLessonIntoStudentRepo(cHub, studentUsername, studentRepoName, cube, branch, newLesson, masterToken, repo, studentToken, _silent) {
     try {
         const cloneUrl = `https://github.com/${studentUsername}/${studentRepoName}`;
         shell.exec(`git clone ${cloneUrl} studentRepo`, { silent: _silent });
         process.chdir(process.cwd() + `/studentRepo`);
-        shell.exec(`git checkout --orphan ${lessonBranch}`, { silent: _silent });
+        shell.exec(`git checkout --orphan ${newLesson}`, { silent: _silent });
         shell.exec(`git rm -rf .`, { silent: _silent });
-        shell.exec(`git pull https://${cHub}:${masterToken}@github.com/${repo}.git ${lessonBranch}`, { silent: _silent });
+        shell.exec(`git pull https://${cHub}:${masterToken}@github.com/${repo}.git ${newLesson}`, { silent: _silent });
         
         shell.exec(`git checkout master`, { silent: _silent });
         // update cube info
         let cubeInfo = {};
-        cubeInfo.current = { lesson: lessonBranch };
+        cubeInfo.current = { lesson: newLesson };
+        cubeInfo.lessons[branch] = { test:{status: "done"} };
         fs.writeFileSync(`${cube}.cube.json`, JSON.stringify(cubeInfo));
         
         shell.exec(`git add --all`, { silent: _silent });
@@ -114,21 +115,22 @@ async function pullNextLessonIntoStudentRepo(cHub, studentUsername, studentRepoN
     }
 }
 
-async function pullNextLessonIntoChub(cube, branch, lessonBranch, masterToken, qHub, qHubCube, cHub, repo, _silent) {
+async function pullNextLessonIntoChub(cube, branch, newLesson, masterToken, qHub, qHubCube, cHub, repo, _silent) {
     try {
-        shell.exec(`git checkout --orphan ${lessonBranch}`, { silent: _silent });
+        shell.exec(`git checkout --orphan ${newLesson}`, { silent: _silent });
         shell.exec(`git rm -rf .`, { silent: _silent });
-        shell.exec(`git pull https://${qHub}:${masterToken}@github.com/${qHub}/${qHubCube}.git ${lessonBranch}`, { silent: _silent });
+        shell.exec(`git pull https://${qHub}:${masterToken}@github.com/${qHub}/${qHubCube}.git ${newLesson}`, { silent: _silent });
         
         shell.exec(`git checkout master`, { silent: _silent });
         // update cube info
         let cubeInfo = {};
-        cubeInfo.current = { lesson: lessonBranch };
+        cubeInfo.current = { lesson: newLesson };
+        cubeInfo.lessons[branch] = { test:{status: "done"} };
         fs.writeFileSync(`${cube}.cube.json`, JSON.stringify(cubeInfo));
-        
+
         shell.exec(`git add --all`, { silent: _silent });
         shell.exec(`git commit -m 'Add next lesson branch'`, { silent: _silent });
-        shell.exec(`git push https://${cHub}:${masterToken}@github.com/${repo} ${lessonBranch}`);
+        shell.exec(`git push https://${cHub}:${masterToken}@github.com/${repo} ${newLesson}`);
         shell.exec(`git checkout ${branch} --`, { silent: _silent });
 
     } catch (err) {
