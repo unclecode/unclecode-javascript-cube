@@ -101,9 +101,10 @@ async function pullNextLessonIntoStudentRepo(cHub, studentUsername, studentRepoN
         
         shell.exec(`git checkout master`, { silent: _silent });
         // update cube info
-        let cubeInfo = {};
-        cubeInfo.current = { lesson: newLesson };
-        cubeInfo.lessons[branch] = { test:{status: "done"} };
+        // let cubeInfo = {};
+        let cubeInfo = JSON.parse(fs.readFileSync(`${cube}.cube.json`, 'utf8'));
+        cubeInfo.current.lesson = newLesson;
+        cubeInfo.lessons[branch].test.status = "done";
         fs.writeFileSync(`${cube}.cube.json`, JSON.stringify(cubeInfo));
         
         shell.exec(`git add --all`, { silent: _silent });
@@ -123,9 +124,10 @@ async function pullNextLessonIntoChub(cube, branch, newLesson, masterToken, qHub
         
         shell.exec(`git checkout master`, { silent: _silent });
         // update cube info
-        let cubeInfo = {};
-        cubeInfo.current = { lesson: newLesson };
-        cubeInfo.lessons[branch] = { test:{status: "done"} };
+        // let cubeInfo = {};
+        let cubeInfo = JSON.parse(fs.readFileSync(`${cube}.cube.json`, 'utf8'));
+        cubeInfo.current.lesson = newLesson;
+        cubeInfo.lessons[branch].test.status = "done";
         fs.writeFileSync(`${cube}.cube.json`, JSON.stringify(cubeInfo));
 
         shell.exec(`git add --all`, { silent: _silent });
