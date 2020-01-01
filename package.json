@@ -6,6 +6,16 @@
   "scripts": {
     "test": "jest --verbose"
   },
+  "jest": {
+    "verbose": true,
+    "transform": {
+      ".js": "jest-esm-transformer"  
+    },
+    "modulePathIgnorePatterns": ["checker.js"],
+    "reporters": [
+      "./__tests__/checker"
+    ]    
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",

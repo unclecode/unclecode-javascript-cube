@@ -1,0 +1,56 @@
+{
+    "status": true,
+    "total": 5,
+    "failed": 0,
+    "passed": 5,
+    "startTime": 1577859354777,
+    "duration": 1066,
+    "endTime": 1577859355843,
+    "suites": [
+        {
+            "describe": "Sub Function",
+            "file": "sub.test.js",
+            "test": [
+                {
+                    "fullName": "Sub Function given 5 and 2 returns 3",
+                    "title": "given 5 and 2 returns 3",
+                    "status": true
+                },
+                {
+                    "fullName": "Sub Function given 2 and 5 returns -3",
+                    "title": "given 2 and 5 returns -3",
+                    "status": true
+                }
+            ],
+            "total": 2,
+            "passed": 2,
+            "failed": 0,
+            "status": true
+        },
+        {
+            "describe": "Add Function",
+            "file": "add.test.js",
+            "test": [
+                {
+                    "fullName": "Add Function given 2 and 5 returns 7",
+                    "title": "given 2 and 5 returns 7",
+                    "status": true
+                },
+                {
+                    "fullName": "Add Function given 0 and 5 returns 5",
+                    "title": "given 0 and 5 returns 5",
+                    "status": true
+                },
+                {
+                    "fullName": "Add Function given -3 and 5 returns 2",
+                    "title": "given -3 and 5 returns 2",
+                    "status": true
+                }
+            ],
+            "total": 3,
+            "passed": 3,
+            "failed": 0,
+            "status": true
+        }
+    ]
+}
