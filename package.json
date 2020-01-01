@@ -9,12 +9,14 @@
   "jest": {
     "verbose": true,
     "transform": {
-      ".js": "jest-esm-transformer"  
+      ".js": "jest-esm-transformer"
     },
-    "modulePathIgnorePatterns": ["checker.js"],
+    "modulePathIgnorePatterns": [
+      "checker.js"
+    ],
     "reporters": [
       "./__tests__/checker"
-    ]    
+    ]
   },
   "keywords": [],
   "author": "",
@@ -24,6 +26,7 @@
     "@types/jest": "^24.0.23",
     "axios": "^0.19.0",
     "jest": "^24.9.0",
+    "jest-esm-transformer": "^1.0.0",
     "shelljs": "^0.8.3"
   }
 }
