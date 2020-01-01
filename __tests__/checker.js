@@ -39,7 +39,7 @@ class MyReporter {
 
     fs.writeFileSync( process.cwd() + "/__tests__/result.json", JSON.stringify(result, null, 4))
 
-    console.dir(result, {depth: null, colors: true})
+    //console.dir(result, {depth: null, colors: true})
 
   }
 }
