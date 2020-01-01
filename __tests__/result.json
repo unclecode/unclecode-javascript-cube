@@ -1,32 +1,12 @@
 {
-    "status": true,
+    "status": false,
     "total": 5,
-    "failed": 0,
-    "passed": 5,
-    "startTime": 1577859354777,
-    "duration": 1066,
-    "endTime": 1577859355843,
+    "failed": 5,
+    "passed": 0,
+    "startTime": 1577859735907,
+    "duration": 1637,
+    "endTime": 1577859737544,
     "suites": [
-        {
-            "describe": "Sub Function",
-            "file": "sub.test.js",
-            "test": [
-                {
-                    "fullName": "Sub Function given 5 and 2 returns 3",
-                    "title": "given 5 and 2 returns 3",
-                    "status": true
-                },
-                {
-                    "fullName": "Sub Function given 2 and 5 returns -3",
-                    "title": "given 2 and 5 returns -3",
-                    "status": true
-                }
-            ],
-            "total": 2,
-            "passed": 2,
-            "failed": 0,
-            "status": true
-        },
         {
             "describe": "Add Function",
             "file": "add.test.js",
@@ -34,23 +14,43 @@
                 {
                     "fullName": "Add Function given 2 and 5 returns 7",
                     "title": "given 2 and 5 returns 7",
-                    "status": true
+                    "status": false
                 },
                 {
                     "fullName": "Add Function given 0 and 5 returns 5",
                     "title": "given 0 and 5 returns 5",
-                    "status": true
+                    "status": false
                 },
                 {
                     "fullName": "Add Function given -3 and 5 returns 2",
                     "title": "given -3 and 5 returns 2",
-                    "status": true
+                    "status": false
                 }
             ],
             "total": 3,
-            "passed": 3,
-            "failed": 0,
-            "status": true
+            "passed": 0,
+            "failed": 3,
+            "status": false
+        },
+        {
+            "describe": "Sub Function",
+            "file": "sub.test.js",
+            "test": [
+                {
+                    "fullName": "Sub Function given 5 and 2 returns 3",
+                    "title": "given 5 and 2 returns 3",
+                    "status": false
+                },
+                {
+                    "fullName": "Sub Function given 2 and 5 returns -3",
+                    "title": "given 2 and 5 returns -3",
+                    "status": false
+                }
+            ],
+            "total": 2,
+            "passed": 0,
+            "failed": 2,
+            "status": false
         }
     ]
 }
