@@ -14,5 +14,28 @@
     "level": "moderate",
     "adaptives": [
         "moderate"
-    ]
+    ],
+    "current": {
+        "lesson": "topic1/lesson1",
+        "scenario": [
+            "main#easy#1.values/1.literals",
+            "main#easy#1.values/2.memory",
+            "main#easy#2.variables/1.datatypes",
+            "main#easy#2.variables/2.declaration",
+            "main#easy#3.expressions/1.arithmatic",
+            "main#easy#3.expressions/2.logical"
+        ]
+    },
+    "lessons": {
+        "topic1/lesson1": {
+            "test": {
+                "status": "pending"
+            }
+        },
+        "topic1/lesson2": {
+            "test": {
+                "status": "pending"
+            }
+        }
+    }
 }
