@@ -1,0 +1,28 @@
+{
+  "name": "default-chub",
+  "version": "1.0.0",
+  "description": "Default certified repo template for kportal student",
+  "main": "index.js",
+  "dependencies": {
+    "@octokit/rest": "^16.35.0",
+    "install": "^0.13.0",
+    "npm": "^6.13.4",
+    "shelljs": "^0.8.3",
+    "axios": "^0.19.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KidoCode/default-chub.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/KidoCode/default-chub/issues"
+  },
+  "homepage": "https://github.com/KidoCode/default-chub#readme"
+}

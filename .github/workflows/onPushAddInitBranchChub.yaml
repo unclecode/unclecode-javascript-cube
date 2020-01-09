@@ -1,0 +1,34 @@
+name: Add New Course
+on:
+  push:
+    paths:    
+      - '*.user.json'         
+jobs:
+  addNewCourse:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: Use Node.js 12.x
+      uses: actions/setup-node@v1
+      with:
+        node-version: "12.x"    
+    - name: Cache node modules
+      uses: actions/cache@v1
+      with:
+        path: node_modules
+        key: ${{ runner.OS }}-build-${{ hashFiles('**/package-lock.json') }}
+        restore-keys: |
+          ${{ runner.OS }}-build-${{ env.cache-name }}-
+          ${{ runner.OS }}-build-
+          ${{ runner.OS }}-
+    - name: npm install
+      run: npm install
+      env:
+        CI: true
+    - name: Create new repo and fetch first lesson
+      env:
+        NODE_CUBE: ${{ github.event_path }}
+      run: |
+        git config --global user.email "unclecode@kplay.team"
+        git config --global user.name "kportal-hub"
+        node .github/workflows/onPushAddInitBranchChub.js ${{ github.repository }} ${{ secrets.GITHUB_TOKEN }}
